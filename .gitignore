@@ -1,0 +1,6 @@
+# Binários gerados pelo compilar.bat
+*.exe
+*.pdb
+bin/
+obj/
+.vs/

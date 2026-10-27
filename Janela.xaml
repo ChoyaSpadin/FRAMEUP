@@ -1,0 +1,547 @@
+<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="FRAMEUP · Otimização gamer segura" Width="1120" Height="870"
+        WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize"
+        Background="#0B0F17" Foreground="#E6EDF7" FontFamily="Segoe UI" FontSize="14"
+        UseLayoutRounding="True" SnapsToDevicePixels="True">
+
+  <WindowChrome.WindowChrome>
+    <WindowChrome CaptionHeight="52" ResizeBorderThickness="0" CornerRadius="0" GlassFrameThickness="0" UseAeroCaptionButtons="False"/>
+  </WindowChrome.WindowChrome>
+
+  <Window.Resources>
+    <SolidColorBrush x:Key="Sub" Color="#8B98AD"/>
+    <SolidColorBrush x:Key="Apagado" Color="#5B6779"/>
+    <SolidColorBrush x:Key="Ciano" Color="#22D3EE"/>
+    <SolidColorBrush x:Key="Magenta" Color="#E879F9"/>
+    <SolidColorBrush x:Key="Amarelo" Color="#FACC15"/>
+    <LinearGradientBrush x:Key="Grad" StartPoint="0,0" EndPoint="1,0">
+      <GradientStop Color="#22D3EE" Offset="0"/>
+      <GradientStop Color="#E879F9" Offset="1"/>
+    </LinearGradientBrush>
+    <FontFamily x:Key="Titulo">Bahnschrift SemiBold, Segoe UI Semibold</FontFamily>
+
+    <Style x:Key="Cartao" TargetType="Border">
+      <Setter Property="Background" Value="#121826"/>
+      <Setter Property="BorderBrush" Value="#1F2A3D"/>
+      <Setter Property="BorderThickness" Value="1"/>
+      <Setter Property="CornerRadius" Value="16"/>
+      <Setter Property="Padding" Value="22"/>
+    </Style>
+
+    <Style x:Key="Etiqueta" TargetType="TextBlock">
+      <Setter Property="FontFamily" Value="{StaticResource Titulo}"/>
+      <Setter Property="FontSize" Value="12"/>
+      <Setter Property="Foreground" Value="{StaticResource Ciano}"/>
+    </Style>
+
+    <Style x:Key="Botao" TargetType="Button">
+      <Setter Property="Foreground" Value="#E6EDF7"/>
+      <Setter Property="Background" Value="#1A2233"/>
+      <Setter Property="BorderBrush" Value="#2A3650"/>
+      <Setter Property="BorderThickness" Value="1"/>
+      <Setter Property="Padding" Value="16,10"/>
+      <Setter Property="FontWeight" Value="SemiBold"/>
+      <Setter Property="Cursor" Value="Hand"/>
+      <Setter Property="Focusable" Value="False"/>
+      <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+      <Setter Property="RenderTransform"><Setter.Value><ScaleTransform/></Setter.Value></Setter>
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="Button">
+            <Grid>
+              <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
+                      BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="10"/>
+              <Border x:Name="brilho" Background="White" Opacity="0" CornerRadius="10"/>
+              <ContentPresenter Margin="{TemplateBinding Padding}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="Center"/>
+            </Grid>
+            <ControlTemplate.Triggers>
+              <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="brilho" Property="Opacity" Value="0.07"/></Trigger>
+              <Trigger Property="IsPressed" Value="True"><Setter TargetName="brilho" Property="Opacity" Value="0.14"/></Trigger>
+            </ControlTemplate.Triggers>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+      <Style.Triggers>
+        <Trigger Property="IsPressed" Value="True">
+          <Setter Property="RenderTransform"><Setter.Value><ScaleTransform ScaleX="0.97" ScaleY="0.97"/></Setter.Value></Setter>
+        </Trigger>
+        <Trigger Property="IsEnabled" Value="False"><Setter Property="Opacity" Value="0.4"/></Trigger>
+      </Style.Triggers>
+    </Style>
+
+    <Style x:Key="BotaoPrimario" TargetType="Button" BasedOn="{StaticResource Botao}">
+      <Setter Property="Background" Value="{StaticResource Grad}"/>
+      <Setter Property="BorderThickness" Value="0"/>
+      <Setter Property="Foreground" Value="#06121A"/>
+      <Setter Property="FontFamily" Value="Bahnschrift, Segoe UI"/>
+      <Setter Property="FontWeight" Value="Bold"/>
+      <Setter Property="FontSize" Value="19"/>
+      <Setter Property="Height" Value="58"/>
+      <Setter Property="Effect"><Setter.Value><DropShadowEffect Color="#22D3EE" BlurRadius="26" ShadowDepth="0" Opacity="0.35"/></Setter.Value></Setter>
+    </Style>
+
+    <Style x:Key="BotaoAviso" TargetType="Button" BasedOn="{StaticResource Botao}">
+      <Setter Property="Background" Value="#14FACC15"/>
+      <Setter Property="BorderBrush" Value="#80FACC15"/>
+      <Setter Property="Foreground" Value="#FACC15"/>
+      <Setter Property="FontFamily" Value="Bahnschrift, Segoe UI"/>
+      <Setter Property="FontWeight" Value="Bold"/>
+      <Setter Property="FontSize" Value="15"/>
+      <Setter Property="Height" Value="50"/>
+    </Style>
+
+    <Style x:Key="BotaoLink" TargetType="Button">
+      <Setter Property="Foreground" Value="#22D3EE"/>
+      <Setter Property="FontSize" Value="13"/>
+      <Setter Property="FontWeight" Value="SemiBold"/>
+      <Setter Property="Cursor" Value="Hand"/>
+      <Setter Property="Focusable" Value="False"/>
+      <Setter Property="Padding" Value="6,4"/>
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="Button">
+            <Border x:Name="fundo" Background="Transparent" CornerRadius="6" Padding="{TemplateBinding Padding}">
+              <ContentPresenter/>
+            </Border>
+            <ControlTemplate.Triggers>
+              <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="fundo" Property="Background" Value="#1A22D3EE"/></Trigger>
+              <Trigger Property="IsEnabled" Value="False"><Setter Property="Opacity" Value="0.4"/></Trigger>
+            </ControlTemplate.Triggers>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+
+    <Style x:Key="BotaoJanela" TargetType="Button">
+      <Setter Property="Width" Value="48"/>
+      <Setter Property="Height" Value="52"/>
+      <Setter Property="Foreground" Value="#8B98AD"/>
+      <Setter Property="Background" Value="Transparent"/>
+      <Setter Property="Focusable" Value="False"/>
+      <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True"/>
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="Button">
+            <Border x:Name="fundo" Background="{TemplateBinding Background}">
+              <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+            <ControlTemplate.Triggers>
+              <Trigger Property="IsMouseOver" Value="True">
+                <Setter TargetName="fundo" Property="Background" Value="#1A2233"/>
+                <Setter Property="Foreground" Value="#E6EDF7"/>
+              </Trigger>
+            </ControlTemplate.Triggers>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+
+    <Style x:Key="Aba" TargetType="Button">
+      <Setter Property="Foreground" Value="#8B98AD"/>
+      <Setter Property="FontFamily" Value="{StaticResource Titulo}"/>
+      <Setter Property="FontSize" Value="14.5"/>
+      <Setter Property="Height" Value="52"/>
+      <Setter Property="Padding" Value="18,0"/>
+      <Setter Property="Cursor" Value="Hand"/>
+      <Setter Property="Focusable" Value="False"/>
+      <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True"/>
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="Button">
+            <Border Background="Transparent" Padding="{TemplateBinding Padding}">
+              <ContentPresenter VerticalAlignment="Stretch"/>
+            </Border>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+      <Style.Triggers>
+        <Trigger Property="IsMouseOver" Value="True"><Setter Property="Foreground" Value="#C9D3E3"/></Trigger>
+      </Style.Triggers>
+    </Style>
+
+    <!-- caixa de seleção da aba Personalizada: a linha inteira é clicável -->
+    <Style x:Key="Caixa" TargetType="CheckBox">
+      <Setter Property="Foreground" Value="#E6EDF7"/>
+      <Setter Property="Cursor" Value="Hand"/>
+      <Setter Property="Focusable" Value="False"/>
+      <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="CheckBox">
+            <Border x:Name="linha" Background="Transparent" CornerRadius="12" Padding="12,9">
+              <Grid>
+                <Grid.ColumnDefinitions><ColumnDefinition Width="40"/><ColumnDefinition/></Grid.ColumnDefinitions>
+                <Border x:Name="caixa" Width="22" Height="22" CornerRadius="6" BorderThickness="1.5" BorderBrush="#3A4762"
+                        Background="#0F1522" VerticalAlignment="Center" HorizontalAlignment="Left" RenderTransformOrigin="0.5,0.5">
+                  <Border.RenderTransform><ScaleTransform/></Border.RenderTransform>
+                  <Path x:Name="marca" Data="M4.5,10.5 L8.5,14.5 L16,6.5" Stroke="#06121A" StrokeThickness="2.4" Opacity="0"
+                        StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round"/>
+                </Border>
+                <ContentPresenter Grid.Column="1" VerticalAlignment="Center"/>
+              </Grid>
+            </Border>
+            <ControlTemplate.Triggers>
+              <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="linha" Property="Background" Value="#161E2E"/></Trigger>
+              <Trigger Property="IsChecked" Value="True">
+                <Setter TargetName="caixa" Property="Background" Value="{StaticResource Grad}"/>
+                <Setter TargetName="caixa" Property="BorderThickness" Value="0"/>
+                <Setter TargetName="marca" Property="Opacity" Value="1"/>
+              </Trigger>
+              <Trigger Property="IsEnabled" Value="False"><Setter Property="Opacity" Value="0.55"/></Trigger>
+            </ControlTemplate.Triggers>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+
+    <!-- barra de rolagem fina -->
+    <Style TargetType="ScrollBar">
+      <Setter Property="Width" Value="8"/>
+      <Setter Property="MinWidth" Value="8"/>
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="ScrollBar">
+            <Track x:Name="PART_Track" IsDirectionReversed="True">
+              <Track.Thumb>
+                <Thumb>
+                  <Thumb.Template>
+                    <ControlTemplate TargetType="Thumb"><Border CornerRadius="4" Background="#2A3650"/></ControlTemplate>
+                  </Thumb.Template>
+                </Thumb>
+              </Track.Thumb>
+            </Track>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+  </Window.Resources>
+
+  <Grid x:Name="Raiz">
+    <Grid.Background>
+      <RadialGradientBrush Center="0.9,0.95" GradientOrigin="0.9,0.95" RadiusX="0.7" RadiusY="0.8">
+        <GradientStop Color="#0F2027" Offset="0"/>
+        <GradientStop Color="#0B0F17" Offset="1"/>
+      </RadialGradientBrush>
+    </Grid.Background>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="52"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="38"/>
+    </Grid.RowDefinitions>
+
+    <!-- barra de título com as abas -->
+    <Grid Grid.Row="0">
+      <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="22,0,0,0">
+        <Canvas Width="26" Height="26">
+          <Path Stroke="{StaticResource Grad}" StrokeThickness="2.2" Data="M7,2 H19 A5,5 0 0 1 24,7 V19 A5,5 0 0 1 19,24 H7 A5,5 0 0 1 2,19 V7 A5,5 0 0 1 7,2 Z"/>
+          <Path Stroke="{StaticResource Grad}" StrokeThickness="2.4" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round"
+                Data="M13,19 V8 M8.5,12.5 L13,8 L17.5,12.5"/>
+        </Canvas>
+        <TextBlock Text="FRAMEUP" Margin="12,0,0,0" FontFamily="Bahnschrift, Segoe UI" FontWeight="Bold" FontSize="18"
+                   Foreground="{StaticResource Grad}" VerticalAlignment="Center">
+          <TextBlock.RenderTransform><TranslateTransform Y="1"/></TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock x:Name="TextoVersao" Text="v1.1" Margin="10,2,0,0" FontSize="12" Foreground="{StaticResource Apagado}" VerticalAlignment="Center"/>
+      </StackPanel>
+
+      <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+        <Button x:Name="AbaInicio" Style="{StaticResource Aba}">
+          <Grid>
+            <TextBlock Text="Início" VerticalAlignment="Center"/>
+            <Border x:Name="LinhaAbaInicio" Height="3" CornerRadius="1.5" Background="{StaticResource Grad}" VerticalAlignment="Bottom" RenderTransformOrigin="0.5,0.5">
+              <Border.RenderTransform><ScaleTransform/></Border.RenderTransform>
+            </Border>
+          </Grid>
+        </Button>
+        <Button x:Name="AbaPersonalizada" Style="{StaticResource Aba}">
+          <Grid>
+            <TextBlock Text="Personalizada" VerticalAlignment="Center"/>
+            <Border x:Name="LinhaAbaPersonalizada" Height="3" CornerRadius="1.5" Background="{StaticResource Grad}" VerticalAlignment="Bottom" RenderTransformOrigin="0.5,0.5" Opacity="0">
+              <Border.RenderTransform><ScaleTransform/></Border.RenderTransform>
+            </Border>
+          </Grid>
+        </Button>
+        <Button x:Name="AbaDiagnostico" Style="{StaticResource Aba}">
+          <Grid>
+            <TextBlock Text="Diagnóstico" VerticalAlignment="Center"/>
+            <Border x:Name="LinhaAbaDiagnostico" Height="3" CornerRadius="1.5" Background="{StaticResource Grad}" VerticalAlignment="Bottom" RenderTransformOrigin="0.5,0.5" Opacity="0">
+              <Border.RenderTransform><ScaleTransform/></Border.RenderTransform>
+            </Border>
+          </Grid>
+        </Button>
+      </StackPanel>
+
+      <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+        <Button x:Name="BotaoMinimizar" Style="{StaticResource BotaoJanela}" ToolTip="Minimizar">
+          <Path Data="M0,0 H11" Stroke="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" StrokeThickness="1.4"/>
+        </Button>
+        <Button x:Name="BotaoFechar" Style="{StaticResource BotaoJanela}" ToolTip="Fechar">
+          <Path Data="M0,0 L10,10 M10,0 L0,10" Stroke="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" StrokeThickness="1.4"/>
+        </Button>
+      </StackPanel>
+      <Border Height="1" Background="#151C2A" VerticalAlignment="Bottom"/>
+    </Grid>
+
+    <!-- ===================================================== INÍCIO -->
+    <Grid x:Name="PaginaInicio" Grid.Row="1" Margin="24,14,24,16">
+      <Grid.RenderTransform><TranslateTransform/></Grid.RenderTransform>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="1.5*"/>
+        <ColumnDefinition Width="18"/>
+        <ColumnDefinition Width="*"/>
+      </Grid.ColumnDefinitions>
+
+      <Border Grid.Column="0" Style="{StaticResource Cartao}" Padding="28,22">
+        <DockPanel LastChildFill="True">
+          <StackPanel DockPanel.Dock="Top">
+            <TextBlock Text="OTIMIZAÇÃO COMPLETA" Style="{StaticResource Etiqueta}"/>
+            <TextBlock Margin="0,6,0,0" FontFamily="Bahnschrift, Segoe UI" FontWeight="Bold" FontSize="34">
+              <Run Text="Seu PC no "/><Run Text="modo jogo." Foreground="{StaticResource Grad}"/>
+            </TextBlock>
+            <TextBlock x:Name="TextoUltima" Margin="0,4,0,0" Foreground="{StaticResource Sub}" FontSize="13.5"
+                       Text="Faz backup de tudo antes. Pode ser desfeito a qualquer momento."/>
+          </StackPanel>
+
+          <StackPanel DockPanel.Dock="Bottom" Margin="0,12,0,0">
+            <Grid Margin="0,0,0,14">
+              <Border x:Name="TrilhaProgresso" Height="6" CornerRadius="3" Background="#1A2233"/>
+              <Border x:Name="BarraProgresso" Height="6" CornerRadius="3" Background="{StaticResource Grad}" HorizontalAlignment="Left" Width="0"/>
+            </Grid>
+            <Button x:Name="BotaoOtimizar" Style="{StaticResource BotaoPrimario}">
+              <StackPanel Orientation="Horizontal">
+                <Path Data="M9,0 L0,11 H6 L5,18 L14,6 H8 Z" Fill="#06121A" Margin="0,0,12,0" VerticalAlignment="Center"/>
+                <TextBlock x:Name="TextoBotaoOtimizar" Text="OTIMIZAR AGORA" VerticalAlignment="Center"/>
+              </StackPanel>
+            </Button>
+          </StackPanel>
+
+          <StackPanel x:Name="ListaEtapas" Margin="0,12,0,0"/>
+        </DockPanel>
+      </Border>
+
+      <DockPanel Grid.Column="2" LastChildFill="False">
+        <Border DockPanel.Dock="Top" Style="{StaticResource Cartao}" Padding="22,18">
+          <StackPanel>
+            <TextBlock Text="SEU PC" Style="{StaticResource Etiqueta}" Margin="0,0,0,10"/>
+            <Grid>
+              <Grid.ColumnDefinitions><ColumnDefinition Width="46"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+              <Grid.RowDefinitions><RowDefinition/><RowDefinition/><RowDefinition/><RowDefinition/></Grid.RowDefinitions>
+              <TextBlock Grid.Row="0" Text="CPU" Foreground="{StaticResource Apagado}" FontWeight="SemiBold" FontSize="12" Margin="0,3"/>
+              <TextBlock Grid.Row="1" Text="GPU" Foreground="{StaticResource Apagado}" FontWeight="SemiBold" FontSize="12" Margin="0,3"/>
+              <TextBlock Grid.Row="2" Text="RAM" Foreground="{StaticResource Apagado}" FontWeight="SemiBold" FontSize="12" Margin="0,3"/>
+              <TextBlock Grid.Row="3" Text="SO" Foreground="{StaticResource Apagado}" FontWeight="SemiBold" FontSize="12" Margin="0,3"/>
+              <TextBlock x:Name="InfoCpu" Grid.Row="0" Grid.Column="1" Text="lendo…" TextTrimming="CharacterEllipsis" Margin="0,2"/>
+              <TextBlock x:Name="InfoGpu" Grid.Row="1" Grid.Column="1" Text="lendo…" TextTrimming="CharacterEllipsis" Margin="0,2"/>
+              <TextBlock x:Name="InfoRam" Grid.Row="2" Grid.Column="1" Text="lendo…" Margin="0,2"/>
+              <TextBlock x:Name="InfoSo" Grid.Row="3" Grid.Column="1" Text="lendo…" TextTrimming="CharacterEllipsis" Margin="0,2"/>
+            </Grid>
+          </StackPanel>
+        </Border>
+
+        <Border DockPanel.Dock="Top" Style="{StaticResource Cartao}" Margin="0,16,0,0" Padding="22,18">
+          <StackPanel>
+            <TextBlock Text="AJUSTES OPCIONAIS" Style="{StaticResource Etiqueta}" Foreground="{StaticResource Magenta}" Margin="0,0,0,8"/>
+            <Grid Margin="0,4">
+              <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+              <StackPanel VerticalAlignment="Center">
+                <TextBlock Text="Mira consistente" FontWeight="SemiBold" FontSize="15"/>
+                <TextBlock Text="Desliga a aceleração do mouse" Foreground="{StaticResource Sub}" FontSize="12.5"/>
+              </StackPanel>
+              <Button x:Name="BotaoMouse" Grid.Column="1" Style="{StaticResource Botao}" Width="104" Content="Aplicar"/>
+            </Grid>
+            <Border Height="1" Background="#1F2A3D" Margin="0,10"/>
+            <Grid Margin="0,4">
+              <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+              <StackPanel VerticalAlignment="Center">
+                <TextBlock Text="Apps em segundo plano" FontWeight="SemiBold" FontSize="15"/>
+                <TextBlock Text="Impede apps da Loja de rodar escondidos" Foreground="{StaticResource Sub}" FontSize="12.5"/>
+              </StackPanel>
+              <Button x:Name="BotaoApps" Grid.Column="1" Style="{StaticResource Botao}" Width="104" Content="Aplicar"/>
+            </Grid>
+            <Button x:Name="BotaoVerMais" Style="{StaticResource BotaoLink}" HorizontalAlignment="Left" Margin="-6,10,0,0" Content="Ver todos os ajustes  →"/>
+          </StackPanel>
+        </Border>
+
+        <Border DockPanel.Dock="Top" Style="{StaticResource Cartao}" Margin="0,16,0,0" Padding="22,18">
+          <StackPanel>
+            <TextBlock Text="FERRAMENTAS" Style="{StaticResource Etiqueta}" Margin="0,0,0,12"/>
+            <UniformGrid Columns="3">
+              <Button x:Name="BotaoInicializacao" Style="{StaticResource Botao}" Margin="0,0,6,0" Padding="6,12">
+                <StackPanel>
+                  <Path Data="M2,1 H18 A1.5,1.5 0 0 1 19.5,2.5 V15.5 A1.5,1.5 0 0 1 18,17 H2 A1.5,1.5 0 0 1 0.5,15.5 V2.5 A1.5,1.5 0 0 1 2,1 Z M4.5,6 H15.5 M4.5,9.5 H15.5 M4.5,13 H11" Stroke="{StaticResource Ciano}" StrokeThickness="1.6" HorizontalAlignment="Center"/>
+                  <TextBlock Text="Inicialização" Margin="0,8,0,0" FontSize="12.5" HorizontalAlignment="Center"/>
+                </StackPanel>
+              </Button>
+              <Button x:Name="BotaoLimpeza" Style="{StaticResource Botao}" Margin="3,0" Padding="6,12">
+                <StackPanel>
+                  <Path Data="M1,4 H17 M6,4 V1 H12 V4 M3,4 L4,17 H14 L15,4 M7.5,8 V13 M10.5,8 V13" Stroke="{StaticResource Ciano}" StrokeThickness="1.6" StrokeLineJoin="Round" HorizontalAlignment="Center"/>
+                  <TextBlock Text="Limpeza rápida" Margin="0,8,0,0" FontSize="12.5" HorizontalAlignment="Center"/>
+                </StackPanel>
+              </Button>
+              <Button x:Name="BotaoPonto" Style="{StaticResource Botao}" Margin="6,0,0,0" Padding="6,12">
+                <StackPanel>
+                  <Path Data="M9,1 L17,4 V9 C17,13.5 13.6,17.2 9,18 C4.4,17.2 1,13.5 1,9 V4 Z M5.5,9.5 L8,12 L12.5,7.5" Stroke="{StaticResource Ciano}" StrokeThickness="1.6" StrokeLineJoin="Round" HorizontalAlignment="Center"/>
+                  <TextBlock Text="Restauração" Margin="0,8,0,0" FontSize="12.5" HorizontalAlignment="Center"/>
+                </StackPanel>
+              </Button>
+            </UniformGrid>
+          </StackPanel>
+        </Border>
+
+        <Button x:Name="BotaoDesfazer" DockPanel.Dock="Bottom" Style="{StaticResource BotaoAviso}">
+          <StackPanel Orientation="Horizontal">
+            <Path Data="M5,10 L0,5 L5,0 M0,5 H10.5 A5.5,5.5 0 0 1 10.5,16 H7" Stroke="#FACC15" StrokeThickness="2" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round" Margin="0,0,12,0" VerticalAlignment="Center"/>
+            <TextBlock Text="DESFAZER TUDO" VerticalAlignment="Center"/>
+          </StackPanel>
+        </Button>
+      </DockPanel>
+    </Grid>
+
+    <!-- ===================================================== PERSONALIZADA -->
+    <Grid x:Name="PaginaPersonalizada" Grid.Row="1" Margin="24,14,24,16" Visibility="Collapsed">
+      <Grid.RenderTransform><TranslateTransform/></Grid.RenderTransform>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="18"/>
+        <ColumnDefinition Width="330"/>
+      </Grid.ColumnDefinitions>
+
+      <Border Grid.Column="0" Style="{StaticResource Cartao}" Padding="0">
+        <DockPanel>
+          <StackPanel DockPanel.Dock="Top" Margin="28,22,28,10">
+            <TextBlock Text="OTIMIZAÇÃO PERSONALIZADA" Style="{StaticResource Etiqueta}"/>
+            <TextBlock Margin="0,6,0,0" FontFamily="Bahnschrift, Segoe UI" FontWeight="Bold" FontSize="30">
+              <Run Text="Você escolhe "/><Run Text="o que roda." Foreground="{StaticResource Grad}"/>
+            </TextBlock>
+            <TextBlock Margin="0,4,0,0" Foreground="{StaticResource Sub}" FontSize="13.5" TextWrapping="Wrap"
+                       Text="Marque os ajustes que quer aplicar. Cada um pode ser desfeito sozinho depois."/>
+          </StackPanel>
+          <ScrollViewer x:Name="RolagemPersonalizada" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Margin="0,0,8,16">
+            <StackPanel x:Name="ListaPersonalizada" Margin="16,0,14,0"/>
+          </ScrollViewer>
+        </DockPanel>
+      </Border>
+
+      <DockPanel Grid.Column="2" LastChildFill="False">
+        <Border DockPanel.Dock="Top" Style="{StaticResource Cartao}" Padding="20,18">
+          <StackPanel>
+            <TextBlock Text="PERFIS PRONTOS" Style="{StaticResource Etiqueta}" Margin="0,0,0,12"/>
+            <StackPanel x:Name="ListaPerfis"/>
+            <Button x:Name="BotaoLimparSelecao" Style="{StaticResource BotaoLink}" HorizontalAlignment="Left" Margin="-6,4,0,0" Content="Desmarcar tudo"/>
+          </StackPanel>
+        </Border>
+
+        <Button x:Name="BotaoDesfazer2" DockPanel.Dock="Bottom" Style="{StaticResource BotaoAviso}">
+          <StackPanel Orientation="Horizontal">
+            <Path Data="M5,10 L0,5 L5,0 M0,5 H10.5 A5.5,5.5 0 0 1 10.5,16 H7" Stroke="#FACC15" StrokeThickness="2" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round" Margin="0,0,12,0" VerticalAlignment="Center"/>
+            <TextBlock Text="DESFAZER TUDO" VerticalAlignment="Center"/>
+          </StackPanel>
+        </Button>
+
+        <Border DockPanel.Dock="Bottom" Style="{StaticResource Cartao}" Margin="0,0,0,16" Padding="22,18">
+          <StackPanel>
+            <TextBlock Text="SELECIONADOS" Style="{StaticResource Etiqueta}"/>
+            <StackPanel Orientation="Horizontal" Margin="0,2,0,0">
+              <TextBlock x:Name="TextoSelecionados" Text="0" FontFamily="Bahnschrift, Segoe UI" FontWeight="Bold" FontSize="46" Foreground="{StaticResource Grad}"/>
+              <TextBlock x:Name="TextoSelecionadosDe" Text=" de 17" FontSize="17" FontWeight="SemiBold" Foreground="{StaticResource Sub}" VerticalAlignment="Bottom" Margin="4,0,0,10"/>
+            </StackPanel>
+            <TextBlock x:Name="TextoSelecionadosDetalhe" Text="" Foreground="{StaticResource Sub}" FontSize="12.5" TextWrapping="Wrap"/>
+            <Button x:Name="BotaoAplicarSelecionados" Style="{StaticResource BotaoPrimario}" Margin="0,16,0,0" FontSize="17">
+              <StackPanel Orientation="Horizontal">
+                <Path Data="M9,0 L0,11 H6 L5,18 L14,6 H8 Z" Fill="#06121A" Margin="0,0,12,0" VerticalAlignment="Center"/>
+                <TextBlock Text="APLICAR SELECIONADOS" VerticalAlignment="Center"/>
+              </StackPanel>
+            </Button>
+          </StackPanel>
+        </Border>
+      </DockPanel>
+    </Grid>
+
+    <!-- ===================================================== DIAGNÓSTICO -->
+    <Grid x:Name="PaginaDiagnostico" Grid.Row="1" Margin="24,14,24,16" Visibility="Collapsed">
+      <Grid.RenderTransform><TranslateTransform/></Grid.RenderTransform>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="350"/>
+        <ColumnDefinition Width="18"/>
+        <ColumnDefinition Width="*"/>
+      </Grid.ColumnDefinitions>
+
+      <Border Grid.Column="0" Style="{StaticResource Cartao}" Padding="28,24">
+        <DockPanel>
+          <StackPanel DockPanel.Dock="Top">
+            <TextBlock Text="DIAGNÓSTICO" Style="{StaticResource Etiqueta}"/>
+            <TextBlock Margin="0,6,0,0" FontFamily="Bahnschrift, Segoe UI" FontWeight="Bold" FontSize="30">
+              <Run Text="Saúde do "/><Run Text="seu PC" Foreground="{StaticResource Grad}"/>
+            </TextBlock>
+          </StackPanel>
+          <TextBlock DockPanel.Dock="Bottom" Foreground="{StaticResource Apagado}" FontSize="12.5" TextWrapping="Wrap" TextAlignment="Center"
+                     Text="O diagnóstico só lê informações. Nada muda sem você clicar."/>
+          <Button x:Name="BotaoAnalisar" DockPanel.Dock="Bottom" Style="{StaticResource Botao}" Margin="0,0,0,14" Height="46">
+            <StackPanel Orientation="Horizontal">
+              <Path Data="M14,3 A7,7 0 1 0 15,9 M14,0 V4 H10" Stroke="{StaticResource Ciano}" StrokeThickness="1.8" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round" Margin="0,0,10,0" VerticalAlignment="Center"/>
+              <TextBlock Text="Analisar de novo" VerticalAlignment="Center"/>
+            </StackPanel>
+          </Button>
+          <StackPanel VerticalAlignment="Center">
+            <Grid Width="220" Height="220" HorizontalAlignment="Center">
+              <Ellipse Stroke="#1A2233" StrokeThickness="16"/>
+              <Path x:Name="ArcoNota" Stroke="{StaticResource Grad}" StrokeThickness="16" StrokeStartLineCap="Round" StrokeEndLineCap="Round">
+                <Path.Effect><DropShadowEffect Color="#22D3EE" BlurRadius="18" ShadowDepth="0" Opacity="0.35"/></Path.Effect>
+              </Path>
+              <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock x:Name="TextoNota" Text="—" FontFamily="Bahnschrift, Segoe UI" FontWeight="Bold" FontSize="66" HorizontalAlignment="Center"/>
+                <TextBlock Text="de 100" Foreground="{StaticResource Sub}" FontSize="14" HorizontalAlignment="Center" Margin="0,-8,0,0"/>
+              </StackPanel>
+            </Grid>
+            <TextBlock x:Name="TextoNotaRotulo" Text="Analisando…" FontFamily="Bahnschrift, Segoe UI" FontWeight="Bold" FontSize="22" HorizontalAlignment="Center" Margin="0,18,0,0"/>
+            <TextBlock x:Name="TextoResumoDiag" Text="" Foreground="{StaticResource Sub}" FontSize="13.5" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" Margin="0,4,0,0"/>
+          </StackPanel>
+        </DockPanel>
+      </Border>
+
+      <Border Grid.Column="2" Style="{StaticResource Cartao}" Padding="0">
+        <DockPanel>
+          <StackPanel DockPanel.Dock="Top" Margin="28,22,28,8">
+            <TextBlock Text="O QUE ENCONTRAMOS" Style="{StaticResource Etiqueta}"/>
+            <TextBlock Margin="0,4,0,0" Foreground="{StaticResource Sub}" FontSize="13.5" TextWrapping="Wrap"
+                       Text="Problemas que o FRAMEUP consegue ver no seu PC, com o que fazer em cada um."/>
+          </StackPanel>
+          <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Margin="0,0,8,16">
+            <StackPanel x:Name="ListaDiagnostico" Margin="16,0,14,0"/>
+          </ScrollViewer>
+        </DockPanel>
+      </Border>
+    </Grid>
+
+    <!-- barra de status -->
+    <Border Grid.Row="2" BorderBrush="#1F2A3D" BorderThickness="0,1,0,0" Background="#090C13">
+      <Grid Margin="24,0">
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+          <Ellipse x:Name="PontoStatus" Width="8" Height="8" Fill="#5B6779" Margin="0,0,10,0"/>
+          <TextBlock x:Name="TextoStatus" Text="Pronto." Foreground="{StaticResource Sub}" FontSize="12.5"/>
+        </StackPanel>
+        <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" Foreground="{StaticResource Apagado}" FontSize="12.5"
+                   Text="Código aberto  ·  Não instala nada  ·  Não envia dados"/>
+      </Grid>
+    </Border>
+
+    <!-- avisos rápidos -->
+    <StackPanel x:Name="AreaToast" Grid.Row="1" Grid.RowSpan="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,24,52"/>
+
+    <!-- diálogo -->
+    <Grid x:Name="Sobreposicao" Grid.RowSpan="3" Visibility="Collapsed" Background="#C0070A10">
+      <Border x:Name="CartaoDialogo" Style="{StaticResource Cartao}" Width="540" HorizontalAlignment="Center" VerticalAlignment="Center"
+              Padding="30,26" Background="#141B2A" BorderBrush="#2A3650" RenderTransformOrigin="0.5,0.5">
+        <Border.RenderTransform><ScaleTransform/></Border.RenderTransform>
+        <Border.Effect><DropShadowEffect BlurRadius="40" ShadowDepth="0" Opacity="0.6" Color="Black"/></Border.Effect>
+        <StackPanel>
+          <TextBlock x:Name="DialogoTitulo" FontFamily="Bahnschrift, Segoe UI" FontWeight="Bold" FontSize="24" TextWrapping="Wrap"/>
+          <StackPanel x:Name="DialogoCorpo" Margin="0,12,0,0"/>
+          <StackPanel x:Name="DialogoBotoes" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,24,0,0"/>
+        </StackPanel>
+      </Border>
+    </Grid>
+  </Grid>
+</Window>
