@@ -4,12 +4,18 @@ Aplicativo desktop para Windows 10 e 11 que deixa o PC mais leve para jogar em *
 
 **[⬇️ Baixar a versão mais recente (Releases)](../../releases/latest)**
 
+![Tela inicial do FRAMEUP depois da otimização](docs/tela-inicio.png)
+
 ## ✨ Funcionalidades
 
 - **Início**: otimização completa com o botão *OTIMIZAR AGORA*, criando antes um ponto de restauração do Windows.
 - **Personalizada**: 17 ajustes em 7 categorias (Energia, Jogos, Windows, Mouse e teclado, Rede, Limpeza, Segurança), com 3 perfis prontos (*Recomendado*, *Máximo desempenho* e *Notebook*) e um botão para desfazer cada ajuste.
 - **Diagnóstico**: nota de 0 a 100 para o PC, com a lista de problemas encontrados e o que fazer em cada um.
 - **Desfazer tudo**: devolve todas as configurações ao valor de antes.
+
+| Personalizada | Diagnóstico |
+|---|---|
+| ![Aba Personalizada com perfis prontos](docs/tela-personalizada.png) | ![Aba Diagnóstico com a nota do PC](docs/tela-diagnostico.png) |
 
 ## 🛡️ O que o FRAMEUP não faz
 
